@@ -1,26 +1,36 @@
 PODS:
+  - PKHUD (5.3.0)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
   - RxRelay (6.2.0):
     - RxSwift (= 6.2.0)
   - RxSwift (6.2.0)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
 
 DEPENDENCIES:
+  - PKHUD (~> 5.0)
   - RxCocoa (= 6.2.0)
   - RxSwift (= 6.2.0)
+  - SDWebImage (~> 5.0)
 
 SPEC REPOS:
   trunk:
+    - PKHUD
     - RxCocoa
     - RxRelay
     - RxSwift
+    - SDWebImage
 
 SPEC CHECKSUMS:
+  PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
 
-PODFILE CHECKSUM: 630d0972e753f05ffb0980e509ab5e1855d630ad
+PODFILE CHECKSUM: 0182a6b2664528c98dd6877a3c7082235d7bd57c
 
 COCOAPODS: 1.10.1

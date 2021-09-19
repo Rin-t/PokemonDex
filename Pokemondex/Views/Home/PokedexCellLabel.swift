@@ -9,10 +9,9 @@ import UIKit
 
 final class PokedexCellLabel: UILabel {
 
-    init(_text: String) {
+    init() {
         super.init(frame: .zero)
-        text = _text
-        tintColor = .black
+        textColor = .black
         textAlignment = .left
         font = .systemFont(ofSize: 20, weight: .regular)
     }
