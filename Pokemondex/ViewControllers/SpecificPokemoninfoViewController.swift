@@ -13,41 +13,11 @@ final class SpecificPokemoninfoViewController: UIViewController {
     var pokemon: Pokemon?
 
     //MARK: - Views
-    private let monsterBallImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "モンスターボール")
-        imageView.frame.size = CGSize(width: 50, height: 50)
-        return imageView
-    }()
-
-    private lazy var nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = pokemon?.name
-        label.font = .systemFont(ofSize: 25, weight: .regular)
-        label.textColor = .black
-        label.backgroundColor = UIColor.rgb(red: 255, green: 248, blue: 220)
-        label.textAlignment = .center
-        label.layer.cornerRadius = 10
-        label.clipsToBounds = true
-        return label
-    }()
-
-    private let underLabelShadowView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSize(width: 8, height: 8)
-        view.layer.shadowOpacity = 0.4
-        view.layer.shadowRadius = 10
-        return view
-    }()
-
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "モンスターボール")
-        return imageView
-    }()
-    let bottomControlView = UIView()
+    private lazy var nameLabel = PokemonNameLabel(pokemonName: pokemon?.name)
+    private lazy var pokemonView = PokemonView(pokemon: pokemon)
+    private let underLabelShadowView = ShadowView()
+    private let monsterBallImage = PokemonImageView()
+    private let bottomControlView = BottomButtonsView()
 
     //MARK: - LifeCycle
     override func viewDidLoad() {
@@ -62,9 +32,12 @@ final class SpecificPokemoninfoViewController: UIViewController {
         underLabelShadowView.addSubview(nameLabel)
         view.addSubview(underLabelShadowView)
         view.addSubview(monsterBallImage)
+        view.addSubview(pokemonView)
+
         nameLabel.anchor(top: view.topAnchor, centerX: view.centerXAnchor ,width: UIScreen.main.bounds.width * 0.5, height: 35, topPadding: UIScreen.main.bounds.height * 0.15)
         underLabelShadowView.anchor(top: view.topAnchor, centerX: view.centerXAnchor ,width: UIScreen.main.bounds.width * 0.5, height: 35, topPadding: UIScreen.main.bounds.height * 0.15)
         monsterBallImage.anchor(centerY: nameLabel.centerYAnchor, centerX: nameLabel.leftAnchor, width: 50, height: 50)
+        pokemonView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 500, topPadding: 40, leftPadding: 20, rightPadding: 20)
 
     }
 }

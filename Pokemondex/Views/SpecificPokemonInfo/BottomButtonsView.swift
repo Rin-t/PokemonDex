@@ -5,4 +5,8 @@
 //  Created by Rin on 2021/09/20.
 //
 
-import Foundation
+import UIKit
+
+final class BottomButtonsView: UIView {
+    
+}

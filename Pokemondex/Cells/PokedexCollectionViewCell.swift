@@ -21,6 +21,7 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
 
     let monsterBallImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "モンスターボール")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
