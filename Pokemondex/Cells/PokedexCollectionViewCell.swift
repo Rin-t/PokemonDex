@@ -9,13 +9,6 @@ import UIKit
 
 final class PokedexCollectionViewCell: UICollectionViewCell {
 
-//    var pokemon: Pokemon? {
-//        didSet {
-//            nameLabel.text = pokemon?.name
-//            idLabel.text = String(pokemon?.id ?? 0)
-//        }
-//    }
-
     //MARK: - Views
     let nameLabel = PokedexCellLabel()
     let idLabel = PokedexCellLabel()

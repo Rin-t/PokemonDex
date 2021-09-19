@@ -37,7 +37,6 @@ final class HomeViewModel {
                     print("fail to decode")
                 }
                 if self.pokemons.count == self.pokemonIdRange.upperBound {
-                    print(self.pokemons.last)
                     complition(self.pokemons)
                 }
             }

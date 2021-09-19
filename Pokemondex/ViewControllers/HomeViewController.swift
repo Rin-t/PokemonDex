@@ -46,13 +46,14 @@ class HomeViewController: UIViewController {
 
     /// PokemonApiからデータを取得
     private func getPokemonData() {
+        HUD.show(.progress)
         viewModel.getPokemonName { pokemons in
             self.pokemons = pokemons
             self.pokemons.sort(by: { $0!.id < $1!.id })
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+                HUD.hide()
             }
-            print(self.pokemons.count)
         }
     }
 
@@ -74,7 +75,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PokedexCollectionViewCell
-
         // api通信が終わっていなくてデータがない場合はこれ以上進まない
         if pokemons.count == 0 { return cell }
         cellLayout(cell: cell, pokemon: pokemons[indexPath.row])
@@ -83,6 +83,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let nextVC = SpecificPokemoninfoViewController()
+        nextVC.pokemon = pokemons[indexPath.row]
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 
