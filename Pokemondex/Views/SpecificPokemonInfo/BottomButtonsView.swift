@@ -46,6 +46,8 @@ final class BottomButtonView: UIView {
         button?.layer.cornerRadius = 10
         button?.setTitle(buttonTitle, for: .normal)
         button?.setTitleColor(.black, for: .normal)
+        button?.titleLabel?.font = .systemFont(ofSize: 25, weight: .regular)
+        button?.backgroundColor = UIColor.rgb(red: 255, green: 248, blue: 220)
         button?.layer.shadowOffset = .init(width: 1.5, height: 2)
         button?.layer.shadowColor = UIColor.black.cgColor
         button?.layer.shadowOpacity = 0.3
