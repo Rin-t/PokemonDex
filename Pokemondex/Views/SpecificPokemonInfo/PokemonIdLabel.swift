@@ -7,10 +7,11 @@
 
 import UIKit
 
-final class PokemonNameLabel: UILabel {
-    init(pokemonName: String?) {
+final class PokemonIdLabel: UILabel {
+    init(pokemonId: Int?) {
         super.init(frame: .zero)
-        text = pokemonName
+        guard let id = pokemonId else { return }
+        text = "No. " + String(id)
         font = .systemFont(ofSize: 25, weight: .regular)
         textColor = .black
         backgroundColor = UIColor.rgb(red: 255, green: 248, blue: 220)

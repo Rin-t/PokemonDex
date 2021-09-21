@@ -13,7 +13,8 @@ final class PokemonView: UIView {
 
     //MARK: - Views
     private lazy var imageView = PokemonImageView(pokeonImage: pokemon?.sprites.frontImage)
-    //private lazy var firstType = 
+    private lazy var firstTypeLabel = PokemonTypeLabel(pokemon: pokemon, typePosession: .typeOne)
+    private lazy var secondTypeLabel = PokemonTypeLabel(pokemon: pokemon, typePosession: .typeTwo)
 
     init(pokemon: Pokemon?) {
         super.init(frame: .zero)
@@ -32,8 +33,15 @@ final class PokemonView: UIView {
         layer.shadowOpacity = 0.2
         layer.shadowRadius = 10
 
+        let stackView = UIStackView(arrangedSubviews: [firstTypeLabel, secondTypeLabel])
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+
         addSubview(imageView)
+        addSubview(stackView)
         imageView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor)
+        stackView.anchor(bottom: bottomAnchor, left: leftAnchor, height: 45, bottomPadding: 30, leftPadding: 30)
+
     }
 
     required init?(coder: NSCoder) {

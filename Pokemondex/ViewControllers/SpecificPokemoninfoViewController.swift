@@ -6,14 +6,17 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class SpecificPokemoninfoViewController: UIViewController {
 
     //MARK: - Propaties
     var pokemon: Pokemon?
+    private let disposeBag = DisposeBag()
 
     //MARK: - Views
-    private lazy var nameLabel = PokemonNameLabel(pokemonName: pokemon?.name)
+    private lazy var nameLabel = PokemonIdLabel(pokemonId: pokemon?.id)
     private lazy var pokemonView = PokemonView(pokemon: pokemon)
     private let underLabelShadowView = ShadowView()
     private let monsterBallImage = PokemonImageView()
@@ -23,6 +26,7 @@ final class SpecificPokemoninfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        setupBindings()
     }
 
     private func setupLayout() {
@@ -41,5 +45,23 @@ final class SpecificPokemoninfoViewController: UIViewController {
         pokemonView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 500, topPadding: 40, leftPadding: 20, rightPadding: 20)
         bottomControlView.anchor(top: pokemonView.bottomAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, topPadding: 20)
 
+    }
+
+    private func setupBindings() {
+        bottomControlView.nomalColorButton.button?.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                print("aaaaaaaaaa")
+            }
+            .disposed(by: disposeBag)
+
+//        bottomControlView.shinyColorButton.rx.tap
+//            .asDriver()
+//            .drive { [weak self] _ in
+//
+//            }
+//            .disposed(by: disposeBag)
+
+    
     }
 }
