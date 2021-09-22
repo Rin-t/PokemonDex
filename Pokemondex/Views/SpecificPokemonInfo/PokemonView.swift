@@ -13,6 +13,7 @@ final class PokemonView: UIView {
 
     //MARK: - Views
     lazy var imageView = PokemonImageView(pokeonImage: pokemon?.sprites.frontImage)
+    private lazy var pokemonNameLabel = PokemonNameLabel(pokemonName: pokemon?.name)
     private lazy var firstTypeLabel = PokemonTypeLabel(pokemon: pokemon, typePosession: .typeOne)
     private lazy var secondTypeLabel = PokemonTypeLabel(pokemon: pokemon, typePosession: .typeTwo)
 
@@ -39,6 +40,9 @@ final class PokemonView: UIView {
 
         addSubview(imageView)
         addSubview(stackView)
+        addSubview(pokemonNameLabel)
+
+        pokemonNameLabel.anchor(top: topAnchor, left: leftAnchor, topPadding: 20, leftPadding: 30)
         imageView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor)
         stackView.anchor(bottom: bottomAnchor, left: leftAnchor, height: 45, bottomPadding: 30, leftPadding: 30)
 
