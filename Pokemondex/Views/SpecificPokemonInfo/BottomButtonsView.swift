@@ -41,19 +41,20 @@ final class BottomButtonView: UIView {
     init(frame: CGRect, width: CGFloat, buttonTitle: String) {
         super.init(frame: frame)
         button = BottomButton(type: .custom)
-        button?.translatesAutoresizingMaskIntoConstraints = false
-        button?.backgroundColor = .white
-        button?.layer.cornerRadius = 10
-        button?.setTitle(buttonTitle, for: .normal)
-        button?.setTitleColor(.black, for: .normal)
-        button?.titleLabel?.font = .systemFont(ofSize: 25, weight: .regular)
-        button?.backgroundColor = UIColor.rgb(red: 255, green: 248, blue: 220)
-        button?.layer.shadowOffset = .init(width: 1.5, height: 2)
-        button?.layer.shadowColor = UIColor.black.cgColor
-        button?.layer.shadowOpacity = 0.3
-        button?.layer.shadowRadius = 15
-
         guard let button = button else { return }
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 10
+        button.setTitle(buttonTitle, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 25, weight: .regular)
+        button.backgroundColor = UIColor.rgb(red: 255, green: 248, blue: 220)
+        button.layer.shadowOffset = .init(width: 1.5, height: 2)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowRadius = 15
+
         addSubview(button)
 
         button.anchor(centerY: centerYAnchor, centerX: centerXAnchor, width: screenWidth * 0.3, height: screenHeight * 0.08)

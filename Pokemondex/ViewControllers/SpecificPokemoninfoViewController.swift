@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SDWebImage
 
 final class SpecificPokemoninfoViewController: UIViewController {
 
@@ -31,7 +32,7 @@ final class SpecificPokemoninfoViewController: UIViewController {
 
     private func setupLayout() {
         view.backgroundColor = .white
-        self.navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = .white
 
         underLabelShadowView.addSubview(nameLabel)
         view.addSubview(underLabelShadowView)
@@ -48,19 +49,23 @@ final class SpecificPokemoninfoViewController: UIViewController {
     }
 
     private func setupBindings() {
+
+        let nomalImage = URL(string: pokemon?.sprites.frontImage ?? "")
+        let shinyImage = URL(string: pokemon?.sprites.shinyImage ?? "")
+
         bottomControlView.nomalColorButton.button?.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                print("aaaaaaaaaa")
+                self?.pokemonView.imageView.sd_setImage(with: nomalImage)
             }
             .disposed(by: disposeBag)
 
-//        bottomControlView.shinyColorButton.rx.tap
-//            .asDriver()
-//            .drive { [weak self] _ in
-//
-//            }
-//            .disposed(by: disposeBag)
+        bottomControlView.shinyColorButton.button?.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                self?.pokemonView.imageView.sd_setImage(with: shinyImage)
+            }
+            .disposed(by: disposeBag)
 
     
     }

@@ -12,7 +12,7 @@ final class PokemonView: UIView {
     private var pokemon: Pokemon?
 
     //MARK: - Views
-    private lazy var imageView = PokemonImageView(pokeonImage: pokemon?.sprites.frontImage)
+    lazy var imageView = PokemonImageView(pokeonImage: pokemon?.sprites.frontImage)
     private lazy var firstTypeLabel = PokemonTypeLabel(pokemon: pokemon, typePosession: .typeOne)
     private lazy var secondTypeLabel = PokemonTypeLabel(pokemon: pokemon, typePosession: .typeTwo)
 

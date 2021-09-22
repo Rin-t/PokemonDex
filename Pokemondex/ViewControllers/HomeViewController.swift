@@ -42,6 +42,17 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         getPokemonData()
+
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            appearance.backgroundColor = .systemPink
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        } else {
+            navigationController?.navigationBar.barTintColor = .systemPink
+        }
     }
 
     /// PokemonApiからデータを取得
@@ -60,7 +71,6 @@ class HomeViewController: UIViewController {
     /// HomeViewのレイアウトを作成
     private func setupLayout() {
         navigationItem.title = "PokeList"
-        navigationController?.navigationBar.barTintColor = .systemPink
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         view.backgroundColor = .white
         view.addSubview(collectionView)
