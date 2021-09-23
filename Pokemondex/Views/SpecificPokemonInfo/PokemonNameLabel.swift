@@ -12,8 +12,8 @@ final class PokemonNameLabel: UILabel {
         super.init(frame: .zero)
         guard let name = pokemonName else { return }
         text = name
-        font = .systemFont(ofSize: 40, weight: .regular)
-        textColor = .black
+        font = .systemFont(ofSize: 35, weight: .regular)
+        textColor = .darkGray
         backgroundColor = UIColor.rgb(red: 255, green: 248, blue: 220)
         textAlignment = .center
         layer.cornerRadius = 10
