@@ -5,23 +5,23 @@
 そんなポケモンの姿をまとめた図鑑。そう、それがPokemonDex。
 これからもちょっとずつ機能を拡張していきます！！
 
-/Users/rin/Desktop/AnyConv.com__画面収録 2021-09-28 22.42.26.gif
+![AnyConv com__gif用](https://user-images.githubusercontent.com/61740562/135105323-7fe9b50d-83a0-40db-ae03-c71309b3cdd2.gif)
 
-##開発環境
-・Xcode13
+##　開発環境
+- Xcode13
 
-##使用言語
-・Swift5.5
+##　使用言語
+- Swift5.5
 
-##アーキテクチャ
-RxSwift+MVVMのつもり
+##　アーキテクチャ
+- RxSwift+MVVMのつもり
 
-##使用ライブラリ
-・PKHUD
-・RxSwift
-・RxCocoa
-・SDWebImage
+##　使用ライブラリ
+- PKHUD
+- RxSwift
+- RxCocoa
+- SDWebImage
 
-##使用API
+##　使用API
 PokeApi
 https://pokeapi.co/
