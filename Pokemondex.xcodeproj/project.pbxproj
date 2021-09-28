@@ -52,6 +52,7 @@
 		2482AB4C26F619D60037EA4E /* PokedexCellLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexCellLabel.swift; sourceTree = "<group>"; };
 		2482AB4E26F61FC30037EA4E /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		24D57B7E26FB770C00852AF2 /* PokemonNameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonNameLabel.swift; sourceTree = "<group>"; };
+		24F698CF270325630003F499 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		73330F79A4AD3C217401B761 /* Pods-Pokemondex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pokemondex.debug.xcconfig"; path = "Target Support Files/Pods-Pokemondex/Pods-Pokemondex.debug.xcconfig"; sourceTree = "<group>"; };
 		E7CC32B1EAAC9BE2BC39D6E6 /* Pods_Pokemondex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokemondex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -85,6 +86,7 @@
 		2482AB1F26F5049B0037EA4E = {
 			isa = PBXGroup;
 			children = (
+				24F698CF270325630003F499 /* README.md */,
 				2482AB2A26F5049B0037EA4E /* Pokemondex */,
 				2482AB2926F5049B0037EA4E /* Products */,
 				6627BBCCB1D40C5AFB33195E /* Pods */,
