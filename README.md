@@ -23,5 +23,5 @@
 - SDWebImage
 
 ##　使用API
-PokeApi
-https://pokeapi.co/
+- PokeApi
+ - https://pokeapi.co/
