@@ -5,7 +5,7 @@
 そんなポケモンの姿をまとめた図鑑。そう、それがPokemonDex。
 これからもちょっとずつ機能を拡張していきます！！
 
-![AnyConv com__gif用](https://user-images.githubusercontent.com/61740562/135105323-7fe9b50d-83a0-40db-ae03-c71309b3cdd2.gif)
+<img src="https://user-images.githubusercontent.com/61740562/135105323-7fe9b50d-83a0-40db-ae03-c71309b3cdd2.gif" width="400">
 
 ##　開発環境
 - Xcode13
