@@ -8,6 +8,8 @@
 import UIKit
 import PKHUD
 import SDWebImage
+import RxSwift
+import RxCocoa
 
 class HomeViewController: UIViewController {
 
@@ -17,6 +19,7 @@ class HomeViewController: UIViewController {
     // Apiで取得しでコードした情報を持つ
     private var pokemons = [Pokemon?]()
     private let viewModel = HomeViewModel()
+    private let dispodebag = DisposeBag()
 
 
     //MARK: - Views
@@ -57,15 +60,23 @@ class HomeViewController: UIViewController {
 
     /// PokemonApiからデータを取得
     private func getPokemonData() {
-        HUD.show(.progress)
-        viewModel.getPokemonName { pokemons in
-            self.pokemons = pokemons
-            self.pokemons.sort(by: { $0!.id < $1!.id })
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-                HUD.hide()
-            }
-        }
+
+        let pokemons: Observable<[Pokemon]> = viewModel.pokemons
+
+        viewModel.pokemons2
+            
+
+
+        viewModel.getPokemonName()
+//        HUD.show(.progress)
+//        viewModel.getPokemonName { pokemons in
+//            self.pokemons = pokemons
+//            self.pokemons.sort(by: { $0!.id < $1!.id })
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadData()
+//                HUD.hide()
+//            }
+//        }
     }
 
     /// HomeViewのレイアウトを作成
