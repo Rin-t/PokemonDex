@@ -8,6 +8,7 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import RxDataSources
 
 final class HomeViewModel {
     // 取得するポケモンの番号の範囲
