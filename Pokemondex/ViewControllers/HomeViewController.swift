@@ -10,8 +10,9 @@ import PKHUD
 import SDWebImage
 import RxSwift
 import RxCocoa
+import RxDataSources
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
 
     //MARK: - Propaties
     // collectionViewのcellId
@@ -19,7 +20,19 @@ class HomeViewController: UIViewController {
     // Apiで取得しでコードした情報を持つ
     private var pokemons = [Pokemon?]()
     private let viewModel = HomeViewModel()
-    private let dispodebag = DisposeBag()
+    private let disposebag = DisposeBag()
+    private var viewModel2:  HomeViewModel2!
+
+    private lazy var datasource = RxCollectionViewSectionedReloadDataSource<PokemonDexCollectionModel>(configureCell: configureCell)
+
+    private lazy var configureCell: RxCollectionViewSectionedReloadDataSource<PokemonDexCollectionModel>.ConfigureCell = { [weak self] (datasource, collectionView, indexPath, item) in
+        guard let strongSelf = self else { return UICollectionViewCell()}
+        switch item {
+        case .specificPokeomnInfo:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! PokedexCollectionViewCell
+            return cell
+        }
+    }
 
 
     //MARK: - Views
@@ -30,8 +43,6 @@ class HomeViewController: UIViewController {
         layout.minimumLineSpacing = 30
         layout.sectionInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.backgroundColor = .white
         collectionView.register(PokedexCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
 
@@ -44,8 +55,12 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        getPokemonData()
+        setupViewModel()
+        setupCollectionView()
+        confirmAndAdoptToiOSVersioin()
+    }
 
+    private func confirmAndAdoptToiOSVersioin() {
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
@@ -59,24 +74,25 @@ class HomeViewController: UIViewController {
     }
 
     /// PokemonApiからデータを取得
-    private func getPokemonData() {
+    private func setupViewModel() {
+        viewModel2 = HomeViewModel2()
 
-        let pokemons: Observable<[Pokemon]> = viewModel.pokemons
+        viewModel2.items
+            .bind(to: collectionView.rx.items(dataSource: datasource))
+            .disposed(by: disposebag)
 
-        viewModel.pokemons2
-            
+        viewModel2.updateItems()
 
+    }
 
-        viewModel.getPokemonName()
-//        HUD.show(.progress)
-//        viewModel.getPokemonName { pokemons in
-//            self.pokemons = pokemons
-//            self.pokemons.sort(by: { $0!.id < $1!.id })
-//            DispatchQueue.main.async {
-//                self.collectionView.reloadData()
-//                HUD.hide()
-//            }
-//        }
+    private func setupCollectionView() {
+        collectionView.rx.setDelegate(self).disposed(by: disposebag)
+        collectionView.rx.itemSelected
+            .subscribe (onNext: { [weak self] indexPath in
+                guard let item = self?.datasource[indexPath] else { return }
+                self?.collectionView.deselectItem(at: indexPath, animated: true)
+            })
+            .disposed(by: disposebag)
     }
 
     /// HomeViewのレイアウトを作成
@@ -89,18 +105,7 @@ class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pokemons.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PokedexCollectionViewCell
-        // api通信が終わっていなくてデータがない場合はこれ以上進まない
-        if pokemons.count == 0 { return cell }
-        cellLayout(cell: cell, pokemon: pokemons[indexPath.row])
-        return cell
-    }
+extension HomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let nextVC = SpecificPokemoninfoViewController()
