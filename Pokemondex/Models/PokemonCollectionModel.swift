@@ -15,14 +15,7 @@ enum PokemonInfoSection {
 }
 
 enum PokemonInfoItem {
-    case specificPokeomnInfo
-
-    var titile: String {
-        switch self {
-        case .specificPokeomnInfo:
-            return "pokemon"
-        }
-    }
+    case specificPokeomnInfo(pokemon: Pokemon)
 }
 
 

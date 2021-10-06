@@ -19,17 +19,20 @@ final class HomeViewController: UIViewController {
     private let cellId = "cellId"
     // Apiで取得しでコードした情報を持つ
     private var pokemons = [Pokemon?]()
-    private let viewModel = HomeViewModel()
+    private var viewModel: HomeViewModel!
     private let disposebag = DisposeBag()
-    private var viewModel2:  HomeViewModel2!
 
     private lazy var datasource = RxCollectionViewSectionedReloadDataSource<PokemonDexCollectionModel>(configureCell: configureCell)
 
     private lazy var configureCell: RxCollectionViewSectionedReloadDataSource<PokemonDexCollectionModel>.ConfigureCell = { [weak self] (datasource, collectionView, indexPath, item) in
         guard let strongSelf = self else { return UICollectionViewCell()}
         switch item {
-        case .specificPokeomnInfo:
+        case .specificPokeomnInfo(let pokemon):
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! PokedexCollectionViewCell
+            let url = URL(string: pokemon.sprites.frontImage)
+            cell.pokemonImageView.sd_setImage(with: url)
+            cell.nameLabel.text = pokemon.name
+            cell.idLabel.text = "No." + String(pokemon.id)
             return cell
         }
     }
@@ -73,24 +76,32 @@ final class HomeViewController: UIViewController {
         }
     }
 
-    /// PokemonApiからデータを取得
     private func setupViewModel() {
-        viewModel2 = HomeViewModel2()
+        viewModel = HomeViewModel()
 
-        viewModel2.items
+        viewModel.items
             .bind(to: collectionView.rx.items(dataSource: datasource))
             .disposed(by: disposebag)
 
-        viewModel2.updateItems()
+        viewModel.setup()
 
     }
 
     private func setupCollectionView() {
         collectionView.rx.setDelegate(self).disposed(by: disposebag)
         collectionView.rx.itemSelected
-            .subscribe (onNext: { [weak self] indexPath in
-                guard let item = self?.datasource[indexPath] else { return }
-                self?.collectionView.deselectItem(at: indexPath, animated: true)
+            .map { [weak self] indexPath -> PokemonInfoItem? in
+                return self?.datasource[indexPath]
+            }
+            .subscribe (onNext: { [weak self] item in
+                guard let item = item else { return }
+                switch item {
+                case .specificPokeomnInfo(let pokemon):
+                    let nextVC = SpecificPokemoninfoViewController()
+                    nextVC.pokemon = pokemon
+                    self?.navigationController?.pushViewController(nextVC, animated: true)
+                }
+                print("cell tapped")
             })
             .disposed(by: disposebag)
     }
@@ -106,24 +117,10 @@ final class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UICollectionViewDelegate {
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let nextVC = SpecificPokemoninfoViewController()
-        nextVC.pokemon = pokemons[indexPath.row]
-        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
-
-
-    /// cellのレイアウト
-    /// - Parameters:
-    ///   - cell: PokedexCollectionViewCell
-    ///   - pokemon: api通信で取得したデータ
-    private func cellLayout(cell: PokedexCollectionViewCell, pokemon: Pokemon?) {
-        guard let url = URL(string: pokemon?.sprites.frontImage ?? "") else { return }
-        cell.pokemonImageView.sd_setImage(with: url)
-        cell.nameLabel.text = pokemon?.name
-        cell.idLabel.text = "No." + String(pokemon?.id ?? 0)
-    }
-
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let nextVC = SpecificPokemoninfoViewController()
+//        nextVC.pokemon = pokemons[indexPath.row]
+//        self.navigationController?.pushViewController(nextVC, animated: true)
+//    }
 }
 
