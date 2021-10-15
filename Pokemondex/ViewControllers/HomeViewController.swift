@@ -37,22 +37,17 @@ final class HomeViewController: UIViewController {
         }
     }
 
-
     //MARK: - Views
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 30
         layout.sectionInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.register(PokedexCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
-
         return collectionView
     }()
-
-    
 
     //MARK: - LifeCycle
     override func viewDidLoad() {
@@ -101,7 +96,6 @@ final class HomeViewController: UIViewController {
                     nextVC.pokemon = pokemon
                     self?.navigationController?.pushViewController(nextVC, animated: true)
                 }
-                print("cell tapped")
             })
             .disposed(by: disposebag)
     }
@@ -116,11 +110,8 @@ final class HomeViewController: UIViewController {
     }
 }
 
+
 extension HomeViewController: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let nextVC = SpecificPokemoninfoViewController()
-//        nextVC.pokemon = pokemons[indexPath.row]
-//        self.navigationController?.pushViewController(nextVC, animated: true)
-//    }
+    
 }
 

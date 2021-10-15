@@ -21,10 +21,9 @@ final class HomeViewModel {
     }
 
     func setup() {
-        fetchPokemonsInfo { [weak self] pokemons in
-            var sortedPokemonData = pokemons
-            sortedPokemonData.sort(by: { $0.id < $1.id})
-            self?.updateItems(pokemons: sortedPokemonData)
+        Task {
+            let pokemons = await fetchPokemonsData()
+            updateItems(pokemons: pokemons)
         }
     }
 
@@ -36,35 +35,17 @@ final class HomeViewModel {
         items.accept(sections)
     }
 
-
-    private func fetchPokemonsInfo(completion: @escaping ([Pokemon]) -> ()) {
+    private func fetchPokemonsData() async -> [Pokemon] {
         for id in pokemonIdRange {
-            guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { return }
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                if error != nil {
-                    print("fail to fetch data")
-                    return
-                }
-
-                guard let data = data,
-                      response != nil else {
-                          print("data or response are nil")
-                          return
-                      }
-                do {
-                    let pokemon = try JSONDecoder().decode(Pokemon.self, from: data)
-                    self.pokemons.append(pokemon)
-                } catch {
-                    print("fail to decode")
-                }
-
-                if self.pokemons.count == self.pokemonIdRange.upperBound {
-                    completion(self.pokemons)
-                }
+            guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { return []}
+            do {
+                let (fetchedData, _) = try await URLSession.shared.data(from: url)
+                let pokemon = try JSONDecoder().decode(Pokemon.self, from: fetchedData)
+                self.pokemons.append(pokemon)
+            } catch {
+                print("error")
             }
-            task.resume()
         }
-
-    }
-
+        return pokemons
+   }
 }
