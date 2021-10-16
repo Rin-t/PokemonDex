@@ -36,15 +36,23 @@ final class HomeViewModel {
     }
 
     private func fetchPokemonsData() async -> [Pokemon] {
-        for id in pokemonIdRange {
-            guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { return []}
-            do {
-                let (fetchedData, _) = try await URLSession.shared.data(from: url)
-                let pokemon = try JSONDecoder().decode(Pokemon.self, from: fetchedData)
-                self.pokemons.append(pokemon)
-            } catch {
-                print("error")
+        do {
+            try await withThrowingTaskGroup(of: (Data, URLResponse).self) { group in
+                for id in pokemonIdRange {
+                    group.addTask {
+                        guard let url: URL = .init(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { return (Data(), URLResponse())}
+                        return try await URLSession.shared.data(from: url)
+                    }
+                }
+
+                for try await (fetchedData, _) in group {
+                    let pokemon = try JSONDecoder().decode(Pokemon.self, from: fetchedData)
+                    pokemons.append(pokemon)
+                    pokemons.sort(by: { $0.id < $1.id } )
+                }
             }
+        } catch {
+            print("error")
         }
         return pokemons
    }

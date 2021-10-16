@@ -67,6 +67,5 @@ final class SpecificPokemoninfoViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
-    
     }
 }

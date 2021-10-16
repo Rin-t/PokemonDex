@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import PKHUD
 import SDWebImage
 import RxSwift
 import RxCocoa
@@ -15,15 +14,12 @@ import RxDataSources
 final class HomeViewController: UIViewController {
 
     //MARK: - Propaties
-    // collectionViewのcellId
     private let cellId = "cellId"
-    // Apiで取得しでコードした情報を持つ
     private var pokemons = [Pokemon?]()
     private var viewModel: HomeViewModel!
     private let disposebag = DisposeBag()
 
     private lazy var datasource = RxCollectionViewSectionedReloadDataSource<PokemonDexCollectionModel>(configureCell: configureCell)
-
     private lazy var configureCell: RxCollectionViewSectionedReloadDataSource<PokemonDexCollectionModel>.ConfigureCell = { [weak self] (datasource, collectionView, indexPath, item) in
         guard let strongSelf = self else { return UICollectionViewCell()}
         switch item {
@@ -100,7 +96,6 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposebag)
     }
 
-    /// HomeViewのレイアウトを作成
     private func setupLayout() {
         navigationItem.title = "PokeList"
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
@@ -110,8 +105,5 @@ final class HomeViewController: UIViewController {
     }
 }
 
-
-extension HomeViewController: UICollectionViewDelegate {
-    
-}
+extension HomeViewController: UICollectionViewDelegate {}
 
