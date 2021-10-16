@@ -12,9 +12,6 @@ import RxDataSources
 
 final class HomeViewModel {
 
-    let pokemonIdRange = 1...151
-    var pokemons = [Pokemon]()
-
     let items = BehaviorRelay<[PokemonDexCollectionModel]>(value: [])
     var itemObserbable: Observable<[PokemonDexCollectionModel]> {
         return items.asObservable()
@@ -36,6 +33,9 @@ final class HomeViewModel {
     }
 
     private func fetchPokemonsData() async -> [Pokemon] {
+        let pokemonIdRange = 1...151
+        var pokemons = [Pokemon]()
+
         do {
             try await withThrowingTaskGroup(of: (Data, URLResponse).self) { group in
                 for id in pokemonIdRange {

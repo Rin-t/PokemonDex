@@ -11,11 +11,10 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
 
     //MARK: - Propaties
     private let cellId = "cellId"
-    private var pokemons = [Pokemon?]()
     private var viewModel: HomeViewModel!
     private let disposebag = DisposeBag()
 
@@ -51,20 +50,7 @@ final class HomeViewController: UIViewController {
         setupLayout()
         setupViewModel()
         setupCollectionView()
-        confirmAndAdoptToiOSVersioin()
-    }
-
-    private func confirmAndAdoptToiOSVersioin() {
-        if #available(iOS 15.0, *) {
-            let appearance = UINavigationBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-            appearance.backgroundColor = .systemPink
-            navigationController?.navigationBar.standardAppearance = appearance
-            navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        } else {
-            navigationController?.navigationBar.barTintColor = .systemPink
-        }
+        navigationbarAdoptToiOS15()
     }
 
     private func setupViewModel() {
@@ -75,7 +61,6 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposebag)
 
         viewModel.setup()
-
     }
 
     private func setupCollectionView() {
