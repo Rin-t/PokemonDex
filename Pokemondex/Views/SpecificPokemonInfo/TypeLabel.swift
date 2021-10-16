@@ -63,7 +63,6 @@ final class PokemonTypeLabel: UILabel {
             let typeColor = PokemonType(rawValue: type)?.color
             backgroundColor = typeColor
         case .typeTwo:
-            //　タイプ2を持っているかどうかの判定
             guard pokemon?.types.count == 2 else { return }
             guard let type = pokemon?.types[1].type.name else { return }
             text = type

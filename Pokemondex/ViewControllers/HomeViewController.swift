@@ -83,7 +83,6 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
 
     private func setupLayout() {
         navigationItem.title = "PokeList"
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         view.backgroundColor = .white
         view.addSubview(collectionView)
         collectionView.anchor(top: view.topAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, topPadding: 60, bottomPadding: 0, leftPadding: 0, rightPadding: 0)
