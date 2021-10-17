@@ -13,7 +13,7 @@ final class PokemonImageView: UIImageView {
     init(pokeonImage: String?) {
         super.init(frame: .zero)
         contentMode = .scaleAspectFit
-        let url = URL(string: pokeonImage ?? "")
+        let url = URL(string: pokeonImage ?? "question")
         sd_setImage(with: url)
     }
 

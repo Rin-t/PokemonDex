@@ -33,7 +33,7 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
     }
 
     //MARK: - Views
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 30
