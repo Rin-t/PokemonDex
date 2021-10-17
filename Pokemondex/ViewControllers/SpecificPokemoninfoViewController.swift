@@ -20,7 +20,7 @@ final class SpecificPokemoninfoViewController: UIViewController {
     private lazy var pokemonIdLabel = PokemonIdLabel(pokemonId: pokemon?.id)
     private lazy var pokemonView = PokemonView(pokemon: pokemon)
     private let underIdLabelShadowView = ShadowView()
-    private let monsterBallImage = PokemonImageView()
+    private let monsterBallImage = MonsterBallImageView()
     private let bottomButtonsView = BottomButtonsView()
 
     //MARK: - LifeCycle

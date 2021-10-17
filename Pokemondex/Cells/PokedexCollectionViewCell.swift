@@ -18,7 +18,7 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-
+    
     let monsterBallImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "モンスターボール")
@@ -42,18 +42,18 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
 
         let stackView = UIStackView(arrangedSubviews: [idLabel, nameLabel])
         stackView.axis = .horizontal
-        stackView.spacing = viewWidth / 20
+        stackView.spacing = viewWidth * 0.05
 
         let baseStackView = UIStackView(arrangedSubviews: [pokemonImageView, stackView, monsterBallImageView])
         baseStackView.axis = .horizontal
-        baseStackView.spacing = viewWidth / 25
+        baseStackView.spacing = viewWidth * 0.04
 
         addSubview(baseStackView)
 
         pokemonImageView.anchor(width: 60)
         monsterBallImageView.anchor(width: 20)
-        idLabel.anchor(width: viewWidth / 7)
-        baseStackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor, width: UIScreen.main.bounds.width - 80, height: 50, topPadding: 10, bottomPadding: 10, leftPadding: viewWidth / 30, rightPadding: viewWidth / 30)
+        idLabel.anchor(width: viewWidth * 0.14)
+        baseStackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor, width: UIScreen.main.bounds.width - 80, height: 50, topPadding: 10, bottomPadding: 10, leftPadding: viewWidth * 0.03, rightPadding: viewWidth * 0.03)
     }
 
     required init?(coder: NSCoder) {

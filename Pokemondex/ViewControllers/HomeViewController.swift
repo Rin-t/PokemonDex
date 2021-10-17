@@ -23,7 +23,7 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
         guard let strongSelf = self else { return UICollectionViewCell()}
         switch item {
         case .specificPokeomnInfo(let pokemon):
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! PokedexCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: strongSelf.cellId, for: indexPath) as! PokedexCollectionViewCell
             let url = URL(string: pokemon.sprites.frontImage)
             cell.pokemonImageView.sd_setImage(with: url)
             cell.nameLabel.text = pokemon.name
