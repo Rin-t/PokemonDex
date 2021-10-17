@@ -12,7 +12,6 @@ import RxCocoa
 import RxDataSources
 
 final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
-
     //MARK: - Propaties
     private let cellId = "cellId"
     private var viewModel: HomeViewModel!
@@ -25,9 +24,7 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
         case .specificPokeomnInfo(let pokemon):
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: strongSelf.cellId, for: indexPath) as! PokedexCollectionViewCell
             let url = URL(string: pokemon.sprites.frontImage)
-            cell.pokemonImageView.sd_setImage(with: url)
-            cell.nameLabel.text = pokemon.name
-            cell.idLabel.text = "No." + String(pokemon.id)
+            cell.configure(imageURL: url, name: pokemon.name, id: pokemon.id)
             return cell
         }
     }

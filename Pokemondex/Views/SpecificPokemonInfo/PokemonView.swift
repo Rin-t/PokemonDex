@@ -9,6 +9,7 @@ import UIKit
 
 final class PokemonView: UIView {
 
+    //MARK: - Propaties
     private var pokemon: Pokemon?
 
     //MARK: - Views
@@ -17,6 +18,7 @@ final class PokemonView: UIView {
     private lazy var firstTypeLabel = PokemonTypeLabel(pokemon: pokemon, typePosession: .typeOne)
     private lazy var secondTypeLabel = PokemonTypeLabel(pokemon: pokemon, typePosession: .typeTwo)
 
+    //MARK: - Methods
     init(pokemon: Pokemon?) {
         super.init(frame: .zero)
         self.pokemon = pokemon
@@ -47,7 +49,6 @@ final class PokemonView: UIView {
         pokemonNameLabel.anchor(top: topAnchor, left: leftAnchor, topPadding: viewHeight * 0.02, leftPadding: viewWidth * 0.08)
         imageView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor, width: viewWidth * 0.8)
         stackView.anchor(bottom: bottomAnchor, left: leftAnchor, height: 45, bottomPadding: viewHeight * 0.02, leftPadding: viewWidth * 0.08)
-
     }
 
     required init?(coder: NSCoder) {

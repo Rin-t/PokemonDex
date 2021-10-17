@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 final class PokemonImageView: UIImageView {
-
+    //MARK: - Methods
     init(pokeonImage: String?) {
         super.init(frame: .zero)
         contentMode = .scaleAspectFit

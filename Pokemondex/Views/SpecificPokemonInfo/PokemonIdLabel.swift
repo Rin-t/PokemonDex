@@ -8,6 +8,7 @@
 import UIKit
 
 final class PokemonIdLabel: UILabel {
+    //MARK: - Methods
     init(pokemonId: Int?) {
         super.init(frame: .zero)
         guard let id = pokemonId else { return }

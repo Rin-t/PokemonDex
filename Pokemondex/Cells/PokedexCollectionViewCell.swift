@@ -30,7 +30,6 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 10
         self.backgroundColor = UIColor.rgb(red: 255, green: 248, blue: 220)
 
-        // 影をつける
         self.layer.masksToBounds = false
         self.layer.shadowOffset = CGSize(width: 3, height: 3)
         self.layer.shadowOpacity = 0.4
@@ -45,11 +44,17 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
         baseStackView.spacing = viewWidth * 0.04
 
         addSubview(baseStackView)
-
+        
         pokemonImageView.anchor(width: 60)
         monsterBallImageView.anchor(width: 20)
         idLabel.anchor(width: viewWidth * 0.14)
         baseStackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor, width: UIScreen.main.bounds.width - 80, height: 50, topPadding: 10, bottomPadding: 10, leftPadding: viewWidth * 0.03, rightPadding: viewWidth * 0.03)
+    }
+
+    func configure(imageURL: URL?, name: String, id: Int) {
+        pokemonImageView.sd_setImage(with: imageURL)
+        nameLabel.text = name
+        idLabel.text = "No." + String(id)
     }
 
     required init?(coder: NSCoder) {

@@ -10,10 +10,11 @@ import UIKit
 import UIKit
 
 final class BottomButtonsView: UIView {
-
+    //MARK: - Propaties
     let nomalColorButton = BottomButtonView(frame: .zero, width: 100, buttonTitle: "nomal")
     let shinyColorButton = BottomButtonView(frame: .zero, width: 100, buttonTitle: "shiny")
 
+    //MARK: - Methods
     init() {
         super.init(frame: .zero)
         let basestackView = UIStackView(arrangedSubviews: [nomalColorButton, shinyColorButton])
@@ -29,15 +30,16 @@ final class BottomButtonsView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder) 
     }
-
 }
 
 final class BottomButtonView: UIView {
 
+    //MARK: - Propaties
     var button: BottomButton?
     private let screenHeight = UIScreen.main.bounds.height
     private let screenWidth = UIScreen.main.bounds.width
 
+    //MARK: - Methods
     init(frame: CGRect, width: CGFloat, buttonTitle: String) {
         super.init(frame: frame)
         button = BottomButton(type: .custom)
@@ -65,8 +67,8 @@ final class BottomButtonView: UIView {
     }
 }
 
-class BottomButton: UIButton {
-
+final class BottomButton: UIButton {
+    //MARK: - Methods
     override var isHighlighted: Bool {
         didSet {
             if isHighlighted {

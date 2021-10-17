@@ -11,7 +11,6 @@ import RxCocoa
 import SDWebImage
 
 final class SpecificPokemoninfoViewController: UIViewController {
-
     //MARK: - Propaties
     var pokemon: Pokemon?
     private let disposeBag = DisposeBag()
@@ -47,7 +46,6 @@ final class SpecificPokemoninfoViewController: UIViewController {
         monsterBallImage.anchor(centerY: pokemonIdLabel.centerYAnchor, centerX: pokemonIdLabel.leftAnchor, width: 50, height: 50)
         pokemonView.anchor(top: pokemonIdLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, height: viewHeight * 0.6, topPadding: viewWidth * 0.06, leftPadding: 20, rightPadding: 20)
         bottomButtonsView.anchor(top: pokemonView.bottomAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, topPadding: viewHeight * 0.03, bottomPadding: viewHeight * 0.05)
-
     }
 
     private func setupBindings() {

@@ -8,7 +8,7 @@
 import UIKit
 
 final class ShadowView: UIView {
-
+    //MARK: - Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear

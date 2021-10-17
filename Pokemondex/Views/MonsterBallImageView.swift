@@ -8,7 +8,7 @@
 import UIKit
 
 final class MonsterBallImageView: UIImageView {
-
+    //MARK: - Methods
     init() {
         super.init(frame: .zero)
         image = UIImage(named: "モンスターボール")

@@ -52,7 +52,7 @@ enum TypePosession {
 }
 
 final class PokemonTypeLabel: UILabel {
-
+    //MARK: - Methods
     init(pokemon: Pokemon?, typePosession: TypePosession) {
         super.init(frame: .zero)
 

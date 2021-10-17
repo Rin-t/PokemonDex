@@ -11,12 +11,13 @@ import RxSwift
 import RxDataSources
 
 final class HomeViewModel {
-
+    //MARK: - Propaties
     let items = BehaviorRelay<[PokemonDexCollectionModel]>(value: [])
     var itemObserbable: Observable<[PokemonDexCollectionModel]> {
         return items.asObservable()
     }
 
+    //MARK: - Methods
     func setup() {
         Task {
             let pokemons = await fetchPokemonsData()
