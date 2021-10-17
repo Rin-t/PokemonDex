@@ -80,6 +80,10 @@ final class PokemonTypeLabel: UILabel {
 
     }
 
+    private func coloringTextBackGround() {
+
+    }
+
     required init?(coder: NSCoder) {
         super.init(coder: coder) 
     }

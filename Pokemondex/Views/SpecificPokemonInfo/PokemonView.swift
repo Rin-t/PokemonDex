@@ -24,6 +24,8 @@ final class PokemonView: UIView {
     }
 
     private func setupLayout() {
+        let viewHeight = UIScreen.main.bounds.height
+        let viewWidth = UIScreen.main.bounds.width
 
         layer.cornerRadius = 10
         clipsToBounds = true
@@ -42,9 +44,9 @@ final class PokemonView: UIView {
         addSubview(stackView)
         addSubview(pokemonNameLabel)
 
-        pokemonNameLabel.anchor(top: topAnchor, left: leftAnchor, topPadding: 20, leftPadding: 30)
-        imageView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor)
-        stackView.anchor(bottom: bottomAnchor, left: leftAnchor, height: 45, bottomPadding: 30, leftPadding: 30)
+        pokemonNameLabel.anchor(top: topAnchor, left: leftAnchor, topPadding: viewHeight * 0.02, leftPadding: viewWidth * 0.08)
+        imageView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor, width: viewWidth * 0.8)
+        stackView.anchor(bottom: bottomAnchor, left: leftAnchor, height: 45, bottomPadding: viewHeight * 0.02, leftPadding: viewWidth * 0.08)
 
     }
 

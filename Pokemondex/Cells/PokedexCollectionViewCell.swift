@@ -29,6 +29,8 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
     //MARK: - Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
+        let viewWidth = UIScreen.main.bounds.width
+        print(viewWidth)
         self.layer.cornerRadius = 10
         self.backgroundColor = UIColor.rgb(red: 255, green: 248, blue: 220)
 
@@ -40,22 +42,21 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
 
         let stackView = UIStackView(arrangedSubviews: [idLabel, nameLabel])
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.spacing = viewWidth / 20
 
         let baseStackView = UIStackView(arrangedSubviews: [pokemonImageView, stackView, monsterBallImageView])
         baseStackView.axis = .horizontal
-        baseStackView.spacing = 15
+        baseStackView.spacing = viewWidth / 25
 
         addSubview(baseStackView)
 
         pokemonImageView.anchor(width: 60)
         monsterBallImageView.anchor(width: 20)
-        idLabel.anchor(width: 80)
-        baseStackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor, width: UIScreen.main.bounds.width - 80, height: 50, topPadding: 10, bottomPadding: 10, leftPadding: 10, rightPadding: 10)
-
+        idLabel.anchor(width: viewWidth / 7)
+        baseStackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor, width: UIScreen.main.bounds.width - 80, height: 50, topPadding: 10, bottomPadding: 10, leftPadding: viewWidth / 30, rightPadding: viewWidth / 30)
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder) 
     }
 }

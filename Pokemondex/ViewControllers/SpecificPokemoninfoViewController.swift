@@ -17,11 +17,11 @@ final class SpecificPokemoninfoViewController: UIViewController {
     private let disposeBag = DisposeBag()
 
     //MARK: - Views
-    private lazy var nameLabel = PokemonIdLabel(pokemonId: pokemon?.id)
+    private lazy var pokemonIdLabel = PokemonIdLabel(pokemonId: pokemon?.id)
     private lazy var pokemonView = PokemonView(pokemon: pokemon)
-    private let underLabelShadowView = ShadowView()
+    private let underIdLabelShadowView = ShadowView()
     private let monsterBallImage = PokemonImageView()
-    private let bottomControlView = BottomButtonsView()
+    private let bottomButtonsView = BottomButtonsView()
 
     //MARK: - LifeCycle
     override func viewDidLoad() {
@@ -31,39 +31,41 @@ final class SpecificPokemoninfoViewController: UIViewController {
     }
 
     private func setupLayout() {
+        let viewHeight = UIScreen.main.bounds.height
+        let viewWidth = UIScreen.main.bounds.width
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .white
 
-        underLabelShadowView.addSubview(nameLabel)
-        view.addSubview(underLabelShadowView)
+        underIdLabelShadowView.addSubview(pokemonIdLabel)
+        view.addSubview(underIdLabelShadowView)
         view.addSubview(monsterBallImage)
         view.addSubview(pokemonView)
-        view.addSubview(bottomControlView)
+        view.addSubview(bottomButtonsView)
 
-        nameLabel.anchor(top: view.topAnchor, centerX: view.centerXAnchor ,width: UIScreen.main.bounds.width * 0.5, height: 35, topPadding: UIScreen.main.bounds.height * 0.15)
-        underLabelShadowView.anchor(top: view.topAnchor, centerX: view.centerXAnchor ,width: UIScreen.main.bounds.width * 0.5, height: 35, topPadding: UIScreen.main.bounds.height * 0.15)
-        monsterBallImage.anchor(centerY: nameLabel.centerYAnchor, centerX: nameLabel.leftAnchor, width: 50, height: 50)
-        pokemonView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 500, topPadding: 40, leftPadding: 20, rightPadding: 20)
-        bottomControlView.anchor(top: pokemonView.bottomAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, topPadding: 20)
+        pokemonIdLabel.anchor(top: view.topAnchor, centerX: view.centerXAnchor ,width: UIScreen.main.bounds.width * 0.5, height: 35, topPadding: viewHeight * 0.15)
+        underIdLabelShadowView.anchor(top: view.topAnchor, centerX: view.centerXAnchor ,width: UIScreen.main.bounds.width * 0.5, height: 35, topPadding: viewHeight * 0.15)
+        monsterBallImage.anchor(centerY: pokemonIdLabel.centerYAnchor, centerX: pokemonIdLabel.leftAnchor, width: 50, height: 50)
+        pokemonView.anchor(top: pokemonIdLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, height: viewHeight * 0.6, topPadding: viewWidth * 0.06, leftPadding: 20, rightPadding: 20)
+        bottomButtonsView.anchor(top: pokemonView.bottomAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, topPadding: viewHeight * 0.03, bottomPadding: viewHeight * 0.05)
 
     }
 
     private func setupBindings() {
 
-        let nomalImage = URL(string: pokemon?.sprites.frontImage ?? "")
-        let shinyImage = URL(string: pokemon?.sprites.shinyImage ?? "")
+        let nomalImageURL = URL(string: pokemon?.sprites.frontImage ?? "")
+        let shinyImageURL = URL(string: pokemon?.sprites.shinyImage ?? "")
 
-        bottomControlView.nomalColorButton.button?.rx.tap
+        bottomButtonsView.nomalColorButton.button?.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                self?.pokemonView.imageView.sd_setImage(with: nomalImage)
+                self?.pokemonView.imageView.sd_setImage(with: nomalImageURL)
             }
             .disposed(by: disposeBag)
 
-        bottomControlView.shinyColorButton.button?.rx.tap
+        bottomButtonsView.shinyColorButton.button?.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                self?.pokemonView.imageView.sd_setImage(with: shinyImage)
+                self?.pokemonView.imageView.sd_setImage(with: shinyImageURL)
             }
             .disposed(by: disposeBag)
 

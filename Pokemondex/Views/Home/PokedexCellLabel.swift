@@ -13,10 +13,11 @@ final class PokedexCellLabel: UILabel {
         super.init(frame: .zero)
         textColor = .black
         textAlignment = .left
-        font = .systemFont(ofSize: 20, weight: .regular)
+        font = .systemFont(ofSize: 25, weight: .regular)
+        adjustsFontSizeToFitWidth = true
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder) 
     }
 }
