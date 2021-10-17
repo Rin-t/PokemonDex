@@ -10,12 +10,6 @@ import SDWebImage
 
 final class PokemonImageView: UIImageView {
 
-    init() {
-        super.init(frame: .zero)
-        image = UIImage(named: "モンスターボール")
-        frame.size = CGSize(width: 50, height: 50)
-    }
-
     init(pokeonImage: String?) {
         super.init(frame: .zero)
         contentMode = .scaleAspectFit

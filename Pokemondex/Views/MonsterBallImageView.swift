@@ -12,7 +12,7 @@ final class MonsterBallImageView: UIImageView {
     init() {
         super.init(frame: .zero)
         image = UIImage(named: "モンスターボール")
-        frame.size = CGSize(width: 50, height: 50)
+        contentMode = .scaleAspectFit
     }
 
     required init?(coder: NSCoder) {

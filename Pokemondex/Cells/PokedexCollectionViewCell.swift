@@ -12,6 +12,7 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
     //MARK: - Views
     let nameLabel = PokedexCellLabel()
     let idLabel = PokedexCellLabel()
+    let monsterBallImageView = MonsterBallImageView()
 
     let pokemonImageView: UIImageView = {
         let imageView = UIImageView()
@@ -19,12 +20,7 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let monsterBallImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "モンスターボール")
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+
 
     //MARK: - Methods
     override init(frame: CGRect) {

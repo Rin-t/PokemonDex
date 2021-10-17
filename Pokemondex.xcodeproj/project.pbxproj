@@ -85,7 +85,6 @@
 				2460C14826F797FE00E40171 /* ShadowView.swift */,
 				2460C14A26F7AF7400E40171 /* TypeLabel.swift */,
 				24D57B7E26FB770C00852AF2 /* PokemonNameLabel.swift */,
-				2473EAEA271C13DD00489673 /* MonsterBallImageView.swift */,
 			);
 			path = SpecificPokemonInfo;
 			sourceTree = "<group>";
@@ -139,6 +138,7 @@
 		2482AB3F26F507D70037EA4E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2473EAEA271C13DD00489673 /* MonsterBallImageView.swift */,
 				2460C13E26F75CCB00E40171 /* SpecificPokemonInfo */,
 				2482AB4B26F5B8B30037EA4E /* Home */,
 			);
