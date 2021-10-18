@@ -20,8 +20,17 @@ final class HomeViewModel {
     //MARK: - Methods
     func setup() {
         Task {
-            let pokemons = await fetchPokemonsData()
-            updateItems(pokemons: pokemons)
+            do {
+                let pokemons = try await fetchPokemonsData()
+                updateItems(pokemons: pokemons)
+            } catch let error as APICallError {
+                switch error {
+                case .failToFetchData:
+                    print("")
+                case .invalidURL:
+                    print("")
+                }
+            }
         }
     }
 
@@ -33,7 +42,7 @@ final class HomeViewModel {
         items.accept(sections)
     }
 
-    private func fetchPokemonsData() async -> [Pokemon] {
+    private func fetchPokemonsData() async throws -> [Pokemon] {
         let pokemonIdRange = 1...151
         var pokemons = [Pokemon]()
 
@@ -41,7 +50,7 @@ final class HomeViewModel {
             try await withThrowingTaskGroup(of: (Data, URLResponse).self) { group in
                 for id in pokemonIdRange {
                     group.addTask {
-                        guard let url: URL = .init(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { return (Data(), URLResponse())}
+                        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { throw APICallError.invalidURL }
                         return try await URLSession.shared.data(from: url)
                     }
                 }
@@ -53,7 +62,7 @@ final class HomeViewModel {
                 }
             }
         } catch {
-            print("error")
+            throw APICallError.failToFetchData
         }
         return pokemons
    }

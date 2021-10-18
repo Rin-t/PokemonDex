@@ -13,16 +13,16 @@ enum PokemonType: String {
          water = "water",
          grass = "grass",
          electric = "electric",
-         ice = "ice" ,
+         ice = "ice",
          fighting = "fighting",
          poison = "poison",
          ground = "ground",
          flying = "flying",
          psychic = "psychic",
-         bug = "bug" ,
+         bug = "bug",
          rock = "rock" ,
          ghost = "ghost",
-         dark = "dark" ,
+         dark = "dark",
          dragon  = "dragon"
 
     var color: UIColor {
