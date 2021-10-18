@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 final class BottomButtonsView: UIView {
     //MARK: - Propaties
     let nomalColorButton = BottomButtonView(frame: .zero, width: 100, buttonTitle: "nomal")
@@ -35,14 +33,14 @@ final class BottomButtonsView: UIView {
 final class BottomButtonView: UIView {
 
     //MARK: - Propaties
-    var button: BottomButton?
+    var button: SwitchPokemonColorBottomButton?
     private let screenHeight = UIScreen.main.bounds.height
     private let screenWidth = UIScreen.main.bounds.width
 
     //MARK: - Methods
     init(frame: CGRect, width: CGFloat, buttonTitle: String) {
         super.init(frame: frame)
-        button = BottomButton(type: .custom)
+        button = SwitchPokemonColorBottomButton(type: .custom)
         guard let button = button else { return }
 
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +65,7 @@ final class BottomButtonView: UIView {
     }
 }
 
-final class BottomButton: UIButton {
+final class SwitchPokemonColorBottomButton: UIButton {
     //MARK: - Methods
     override var isHighlighted: Bool {
         didSet {

@@ -9,19 +9,19 @@ import UIKit
 
 enum PokemonType: String {
     case nomal = "nomal",
-         fire = "fire" ,
+         fire = "fire",
          water = "water",
          grass = "grass",
          electric = "electric",
          ice = "ice" ,
          fighting = "fighting",
          poison = "poison",
-         ground = "ground" ,
-         flying = "flying" ,
+         ground = "ground",
+         flying = "flying",
          psychic = "psychic",
          bug = "bug" ,
          rock = "rock" ,
-         ghost = "ghost" ,
+         ghost = "ghost",
          dark = "dark" ,
          dragon  = "dragon"
 
@@ -53,21 +53,17 @@ enum TypePosession {
 
 final class PokemonTypeLabel: UILabel {
     //MARK: - Methods
-    init(pokemon: Pokemon?, typePosession: TypePosession) {
+    init(types: [Types], typePosession: TypePosession) {
         super.init(frame: .zero)
-
         switch typePosession {
         case .typeOne:
-            guard let type = pokemon?.types[0].type.name else { return }
-            text = type
-            let typeColor = PokemonType(rawValue: type)?.color
-            backgroundColor = typeColor
+            if types.isEmpty { return }
+            let type = types[0].type.name
+            setupLabelTextAndBackgroundColor(type: type)
         case .typeTwo:
-            guard pokemon?.types.count == 2 else { return }
-            guard let type = pokemon?.types[1].type.name else { return }
-            text = type
-            let typeColor = PokemonType(rawValue: type)?.color
-            backgroundColor = typeColor
+            if types.count < 2 { return }
+            let type = types[1].type.name
+            setupLabelTextAndBackgroundColor(type: type)
         }
         textAlignment = .center
         layer.borderWidth = 0.5
@@ -77,11 +73,12 @@ final class PokemonTypeLabel: UILabel {
         font = .systemFont(ofSize: 20, weight: .bold)
         layer.cornerRadius = 20
         anchor(width: 110)
-
     }
 
-    private func coloringTextBackGround() {
-
+    private func setupLabelTextAndBackgroundColor(type: String) {
+        text = type
+        let typeColor = PokemonType(rawValue: type)?.color
+        backgroundColor = typeColor
     }
 
     required init?(coder: NSCoder) {
