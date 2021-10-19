@@ -22,6 +22,6 @@ final class PokemonNameLabel: UILabel {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder) 
+        fatalError("init(coder:) has not been implemented")
     }
 }

@@ -8,6 +8,6 @@
 import Foundation
 
 enum APICallError: Error {
-    case invalidURL
+    case unconvertibleToURL
     case failToFetchData
 }

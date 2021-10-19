@@ -13,9 +13,12 @@ import RxDataSources
 final class HomeViewModel {
     //MARK: - Propaties
     let items = BehaviorRelay<[PokemonDexCollectionModel]>(value: [])
-    var itemObserbable: Observable<[PokemonDexCollectionModel]> {
+    private var itemObserbable: Observable<[PokemonDexCollectionModel]> {
         return items.asObservable()
     }
+
+    let isHudShown: Observable<Bool>
+
 
     //MARK: - Methods
     func setup() {
@@ -26,15 +29,15 @@ final class HomeViewModel {
             } catch let error as APICallError {
                 switch error {
                 case .failToFetchData:
-                    print("")
-                case .invalidURL:
-                    print("")
+                    print("failToFetchData")
+                case .unconvertibleToURL:
+                    print("unconvertibleToURL")
                 }
             }
         }
     }
 
-    func updateItems(pokemons: [Pokemon]) {
+    private func updateItems(pokemons: [Pokemon]) {
         var sections: [PokemonDexCollectionModel] = []
         let pokemonItems = pokemons.map { PokemonInfoItem.specificPokeomnInfo(pokemon: $0) }
         let pokemonInfoSection = PokemonDexCollectionModel(model: .pokemonsInfo, items: pokemonItems)
@@ -50,7 +53,7 @@ final class HomeViewModel {
             try await withThrowingTaskGroup(of: (Data, URLResponse).self) { group in
                 for id in pokemonIdRange {
                     group.addTask {
-                        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { throw APICallError.invalidURL }
+                        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { throw APICallError.unconvertibleToURL }
                         return try await URLSession.shared.data(from: url)
                     }
                 }

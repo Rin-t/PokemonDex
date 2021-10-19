@@ -26,7 +26,7 @@ final class BottomButtonsView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder) 
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -61,7 +61,7 @@ final class BottomButtonView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -88,7 +88,7 @@ final class SwitchPokemonColorBottomButton: UIButton {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
