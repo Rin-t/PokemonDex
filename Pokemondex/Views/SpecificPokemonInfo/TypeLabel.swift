@@ -24,7 +24,8 @@ enum PokemonType: String {
          ghost = "ghost",
          dark = "dark",
          dragon = "dragon",
-         fairy = "fairy"
+         fairy = "fairy",
+         steel = "steel"
 
     var color: UIColor {
         switch self {
@@ -45,6 +46,7 @@ enum PokemonType: String {
         case .dark: return UIColor.rgb(red: 105, green: 105, blue: 105)
         case .dragon: return UIColor.rgb(red: 240, green: 100, blue: 100)
         case .fairy: return UIColor.rgb(red: 255, green: 192, blue: 203)
+        case .steel: return UIColor.rgb(red: 192, green: 192, blue: 192)
         }
     }
 }
