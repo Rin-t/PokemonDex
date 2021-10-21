@@ -10,6 +10,19 @@ import RxCocoa
 import RxSwift
 import RxDataSources
 
+protocol HomeViewModelDelegate: ApiAlertProtocol, HudProtocol {
+    func showFailAPICallAlert(title: String, message: String)
+    func stopHud()
+}
+
+protocol ApiAlertProtocol {
+    func showFailAPICallAlert(title: String, message: String)
+}
+
+protocol HudProtocol {
+    func stopHud()
+}
+
 final class HomeViewModel {
     //MARK: - Propaties
     let items = BehaviorRelay<[PokemonDexCollectionModel]>(value: [])
@@ -17,8 +30,12 @@ final class HomeViewModel {
         return items.asObservable()
     }
 
-    let isHudShown: Observable<Bool>
+    private var notifyViewController: HomeViewModelDelegate?
 
+    //let isHudShown: Observable<Bool>
+    init(viewController: HomeViewModelDelegate) {
+        notifyViewController = viewController
+    }
 
     //MARK: - Methods
     func setup() {
@@ -26,13 +43,10 @@ final class HomeViewModel {
             do {
                 let pokemons = try await fetchPokemonsData()
                 updateItems(pokemons: pokemons)
+                notifyViewController?.stopHud()
             } catch let error as APICallError {
-                switch error {
-                case .failToFetchData:
-                    print("failToFetchData")
-                case .unconvertibleToURL:
-                    print("unconvertibleToURL")
-                }
+                notifyViewController?.showFailAPICallAlert(title: error.title, message: error.message)
+                notifyViewController?.stopHud()
             }
         }
     }
@@ -48,12 +62,11 @@ final class HomeViewModel {
     private func fetchPokemonsData() async throws -> [Pokemon] {
         let pokemonIdRange = 1...151
         var pokemons = [Pokemon]()
-
         do {
             try await withThrowingTaskGroup(of: (Data, URLResponse).self) { group in
                 for id in pokemonIdRange {
                     group.addTask {
-                        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { throw APICallError.unconvertibleToURL }
+                        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { fatalError() }
                         return try await URLSession.shared.data(from: url)
                     }
                 }

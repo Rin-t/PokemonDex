@@ -10,6 +10,7 @@ import SDWebImage
 import RxSwift
 import RxCocoa
 import RxDataSources
+import PKHUD
 
 final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
     //MARK: - Propaties
@@ -44,6 +45,7 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        HUD.show(.progress, onView: nil)
         setupLayout()
         setupViewModel()
         setupCollectionView()
@@ -51,7 +53,7 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
     }
 
     private func setupViewModel() {
-        viewModel = HomeViewModel()
+        viewModel = HomeViewModel(viewController: self)
 
         viewModel.items
             .bind(to: collectionView.rx.items(dataSource: datasource))
@@ -83,6 +85,28 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
         view.backgroundColor = .white
         view.addSubview(collectionView)
         collectionView.anchor(top: view.topAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, topPadding: 60, bottomPadding: 0, leftPadding: 0, rightPadding: 0)
+    }
+}
+
+extension HomeViewController: HomeViewModelDelegate {
+    func stopHud() {
+        DispatchQueue.main.async {
+            HUD.hide()
+        }
+    }
+
+    func showFailAPICallAlert(title: String, message: String) {
+        showAlert(title: title, message: message)
+    }
+
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+
+        alert.addAction(action)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
 
