@@ -8,7 +8,7 @@
 import UIKit
 
 enum PokemonType: String {
-    case nomal = "nomal",
+    case normal = "normal",
          fire = "fire",
          water = "water",
          grass = "grass",
@@ -23,11 +23,12 @@ enum PokemonType: String {
          rock = "rock" ,
          ghost = "ghost",
          dark = "dark",
-         dragon  = "dragon"
+         dragon = "dragon",
+         fairy = "fairy"
 
     var color: UIColor {
         switch self {
-        case .nomal: return UIColor.rgb(red: 245, green: 222, blue: 179)
+        case .normal: return UIColor.rgb(red: 255, green: 218, blue: 183)
         case .fire: return UIColor.rgb(red: 255, green: 69, blue: 0)
         case .water: return UIColor.rgb(red: 65, green: 105, blue: 225)
         case .grass: return UIColor.rgb(red: 60, green: 179, blue: 113)
@@ -43,6 +44,7 @@ enum PokemonType: String {
         case .ghost: return UIColor.rgb(red: 72, green: 61, blue: 139)
         case .dark: return UIColor.rgb(red: 105, green: 105, blue: 105)
         case .dragon: return UIColor.rgb(red: 240, green: 100, blue: 100)
+        case .fairy: return UIColor.rgb(red: 255, green: 192, blue: 203)
         }
     }
 }
