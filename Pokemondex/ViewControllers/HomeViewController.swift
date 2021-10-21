@@ -45,7 +45,6 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        HUD.show(.progress, onView: nil)
         setupLayout()
         setupViewModel()
         setupCollectionView()
@@ -89,6 +88,12 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
 }
 
 extension HomeViewController: HomeViewModelDelegate {
+    func showHud() {
+        DispatchQueue.main.async {
+            HUD.show(.progress, onView: nil)
+        }
+    }
+
     func stopHud() {
         DispatchQueue.main.async {
             HUD.hide()

@@ -10,9 +10,11 @@ import RxCocoa
 import RxSwift
 import RxDataSources
 
-protocol HomeViewModelDelegate: ApiAlertProtocol, HudProtocol {
+//MARK: - Rxに変えたい
+protocol HomeViewModelDelegate: AnyObject ,ApiAlertProtocol, HudProtocol {
     func showFailAPICallAlert(title: String, message: String)
     func stopHud()
+    func showHud()
 }
 
 protocol ApiAlertProtocol {
@@ -21,6 +23,7 @@ protocol ApiAlertProtocol {
 
 protocol HudProtocol {
     func stopHud()
+    func showHud()
 }
 
 final class HomeViewModel {
@@ -30,7 +33,7 @@ final class HomeViewModel {
         return items.asObservable()
     }
 
-    private var notifyViewController: HomeViewModelDelegate?
+    private weak var notifyViewController: HomeViewModelDelegate?
 
     //let isHudShown: Observable<Bool>
     init(viewController: HomeViewModelDelegate) {
@@ -41,6 +44,7 @@ final class HomeViewModel {
     func setup() {
         Task {
             do {
+                notifyViewController?.showHud()
                 let pokemons = try await fetchPokemonsData()
                 updateItems(pokemons: pokemons)
                 notifyViewController?.stopHud()
