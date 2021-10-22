@@ -70,7 +70,8 @@ final class HomeViewModel {
             try await withThrowingTaskGroup(of: (Data, URLResponse).self) { group in
                 for id in pokemonIdRange {
                     group.addTask {
-                        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { fatalError() }
+                        //guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { throw APICallError.unconvertibleToURL }
+                        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/")!
                         return try await URLSession.shared.data(from: url)
                     }
                 }
