@@ -37,8 +37,8 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
         layout.minimumLineSpacing = 30
         layout.sectionInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
         collectionView.register(PokedexCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.accessibilityIdentifier = "homeCollectionView"
         return collectionView
     }()
 
@@ -83,7 +83,7 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
         navigationItem.title = "PokeList"
         view.backgroundColor = .white
         view.addSubview(collectionView)
-        collectionView.anchor(top: view.topAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, topPadding: 60, bottomPadding: 0, leftPadding: 0, rightPadding: 0)
+        collectionView.anchor(top: view.topAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor)
     }
 }
 

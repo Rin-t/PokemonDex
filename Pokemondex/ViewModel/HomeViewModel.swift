@@ -33,24 +33,24 @@ final class HomeViewModel {
         return items.asObservable()
     }
 
-    private weak var notifyViewController: HomeViewModelDelegate?
+    private weak var homeViewController: HomeViewModelDelegate?
 
     //let isHudShown: Observable<Bool>
     init(viewController: HomeViewModelDelegate) {
-        notifyViewController = viewController
+        homeViewController = viewController
     }
 
     //MARK: - Methods
     func setup() {
         Task {
             do {
-                notifyViewController?.showHud()
+                homeViewController?.showHud()
                 let pokemons = try await fetchPokemonsData()
                 updateItems(pokemons: pokemons)
-                notifyViewController?.stopHud()
+                homeViewController?.stopHud()
             } catch let error as APICallError {
-                notifyViewController?.showFailAPICallAlert(title: error.title, message: error.message)
-                notifyViewController?.stopHud()
+                homeViewController?.showFailAPICallAlert(title: error.title, message: error.message)
+                homeViewController?.stopHud()
             }
         }
     }
@@ -70,8 +70,9 @@ final class HomeViewModel {
             try await withThrowingTaskGroup(of: (Data, URLResponse).self) { group in
                 for id in pokemonIdRange {
                     group.addTask {
-                        //guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { throw APICallError.unconvertibleToURL }
-                        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/")!
+                        // guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { fatalError() }
+                        //let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/")!
+                        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { throw APICallError.unconvertibleToURL }
                         return try await URLSession.shared.data(from: url)
                     }
                 }
@@ -83,6 +84,7 @@ final class HomeViewModel {
                 }
             }
         } catch {
+            print("failToFetchData")
             throw APICallError.failToFetchData
         }
         return pokemons
