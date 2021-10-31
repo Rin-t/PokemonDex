@@ -10,13 +10,32 @@ import UIKit
 final class PokedexCollectionViewCell: UICollectionViewCell {
 
     //MARK: - Views
-    let nameLabel = PokedexCellLabel()
-    let idLabel = PokedexCellLabel()
-    let monsterBallImageView = MonsterBallImageView()
+    let nameLabel: PokedexCellLabel = {
+        let label = PokedexCellLabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "nameLabel"
+        return label
+    }()
+
+    let idLabel: PokedexCellLabel = {
+        let idLabel = PokedexCellLabel()
+        idLabel.translatesAutoresizingMaskIntoConstraints = false
+        idLabel.accessibilityIdentifier = "idLabel"
+        return idLabel
+    }()
+
+    let monsterBallImageView: MonsterBallImageView = {
+        let imageView = MonsterBallImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.accessibilityIdentifier = "monsterBallImageView"
+        return imageView
+    }()
 
     let pokemonImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.accessibilityIdentifier = "pokemonImageView"
         return imageView
     }()
     
@@ -34,23 +53,27 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
         self.layer.shadowOpacity = 0.4
         self.layer.shadowRadius = 10
 
-        let stackView = UIStackView(arrangedSubviews: [idLabel, nameLabel])
+        let stackView = UIStackView(arrangedSubviews: [pokemonImageView, idLabel, nameLabel, monsterBallImageView])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = viewWidth * 0.05
-        stackView.accessibilityIdentifier = "idLabelAndNameLabelStackView"
+        stackView.setCustomSpacing(16, after: pokemonImageView)
+        stackView.setCustomSpacing(16, after: idLabel)
+        stackView.setCustomSpacing(16, after: nameLabel)
+        stackView.distribution = .fill
 
-        let baseStackView = UIStackView(arrangedSubviews: [pokemonImageView, stackView, monsterBallImageView])
-        baseStackView.axis = .horizontal
-        baseStackView.spacing = viewWidth * 0.04
-        baseStackView.accessibilityIdentifier = "CVBaseStackView"
+        addSubview(stackView)
 
-        addSubview(baseStackView)
-        
         pokemonImageView.anchor(width: 60)
+        idLabel.anchor(width: 100)
         monsterBallImageView.anchor(width: 20)
-        idLabel.anchor(width: viewWidth * 0.14)
-        //baseStackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor, width: UIScreen.main.bounds.width - 80, height: 50, topPadding: 10, bottomPadding: 10, leftPadding: viewWidth * 0.03, rightPadding: viewWidth * 0.03)
-        baseStackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor, width: viewWidth * 0.85, height: 50, topPadding: 10, bottomPadding: 10, leftPadding: viewWidth * 0.03, rightPadding: viewWidth * 0.03)
+
+        NSLayoutConstraint.activate([
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+        ])
+         
     }
 
     func configure(imageURL: URL?, name: String, id: Int) {

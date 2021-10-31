@@ -33,7 +33,6 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
     //MARK: - Views
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumLineSpacing = 30
         layout.sectionInset = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -49,6 +48,12 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
         setupViewModel()
         setupCollectionView()
         navigationbarAdoptToiOS15()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = CGSize(width: collectionView.bounds.width, height: 50)
     }
 
     private func setupViewModel() {
