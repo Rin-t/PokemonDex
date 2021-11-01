@@ -22,11 +22,33 @@ final class SpecificPokemoninfoViewController: UIViewController {
     }
 
     //MARK: - Views
-    private lazy var pokemonIdLabel = PokemonIdLabel(pokemonId: pokemon.id)
-    private lazy var pokemonView = PokemonView(pokemon: pokemon)
-    private let underIdLabelShadowView = ShadowView()
-    private let monsterBallImage = MonsterBallImageView()
-    private let bottomButtonsView = BottomButtonsView()
+    private lazy var pokemonIdLabel: PokemonIdLabel = {
+        let label = PokemonIdLabel(pokemonId: pokemon.id)
+        label.accessibilityIdentifier = "pokemonIdLabel"
+        return label
+    }()
+
+    private lazy var pokemonView: PokemonView = {
+        let label = PokemonView(pokemon: pokemon)
+        label.accessibilityIdentifier = "pokemonView"
+        return label
+    }()
+
+    private let underIdLabelShadowView: ShadowView = {
+        let view = ShadowView()
+        view.accessibilityIdentifier = "underIdLabelShadowView"
+        return view
+    }()
+    private let monsterBallImage: MonsterBallImageView = {
+        let imageView = MonsterBallImageView()
+        imageView.accessibilityIdentifier = "monsterBallImage"
+        return imageView
+    }()
+    private let bottomButtonsView: BottomButtonsView = {
+        let view = BottomButtonsView()
+        view.accessibilityIdentifier = "bottomButtonsView"
+        return view
+    }()
 
     //MARK: - LifeCycle
     override func viewDidLoad() {
@@ -36,8 +58,8 @@ final class SpecificPokemoninfoViewController: UIViewController {
     }
 
     private func setupLayout() {
-        let viewHeight = UIScreen.main.bounds.height
-        let viewWidth = UIScreen.main.bounds.width
+        let viewHeight = view.bounds.height
+        let viewWidth = view.bounds.width
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .white
 
@@ -47,8 +69,8 @@ final class SpecificPokemoninfoViewController: UIViewController {
         view.addSubview(pokemonView)
         view.addSubview(bottomButtonsView)
 
-        pokemonIdLabel.anchor(top: view.topAnchor, centerX: view.centerXAnchor ,width: UIScreen.main.bounds.width * 0.5, height: 35, topPadding: viewHeight * 0.15)
-        underIdLabelShadowView.anchor(top: view.topAnchor, centerX: view.centerXAnchor ,width: UIScreen.main.bounds.width * 0.5, height: 35, topPadding: viewHeight * 0.15)
+        pokemonIdLabel.anchor(top: view.topAnchor, centerX: view.centerXAnchor, width: viewWidth * 0.5, height: 35, topPadding: viewHeight * 0.15)
+        underIdLabelShadowView.anchor(top: view.topAnchor, centerX: view.centerXAnchor ,width: viewWidth * 0.5, height: 35, topPadding: viewHeight * 0.15)
         monsterBallImage.anchor(centerY: pokemonIdLabel.centerYAnchor, centerX: pokemonIdLabel.leftAnchor, width: 50, height: 50)
         pokemonView.anchor(top: pokemonIdLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, height: viewHeight * 0.6, topPadding: viewWidth * 0.06, leftPadding: 20, rightPadding: 20)
         bottomButtonsView.anchor(top: pokemonView.bottomAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, topPadding: viewHeight * 0.03, bottomPadding: viewHeight * 0.05)
