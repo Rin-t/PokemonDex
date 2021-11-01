@@ -13,6 +13,7 @@ final class ShadowView: UIView {
         super.init(frame: frame)
         backgroundColor = .clear
         layer.masksToBounds = false
+        layer.shouldRasterize = true
         layer.shadowOffset = CGSize(width: 8, height: 8)
         layer.shadowOpacity = 0.2
         layer.shadowRadius = 10

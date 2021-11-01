@@ -13,7 +13,7 @@ final class PokemonIdLabel: UILabel {
         super.init(frame: .zero)
         guard let id = pokemonId else { return }
         text = "No. " + String(id)
-        font = .systemFont(ofSize: 15, weight: .regular)
+        font = .systemFont(ofSize: 25, weight: .regular)
         textColor = .black
         backgroundColor = UIColor.rgb(red: 255, green: 248, blue: 220)
         textAlignment = .center

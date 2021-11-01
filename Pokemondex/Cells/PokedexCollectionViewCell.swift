@@ -51,6 +51,7 @@ final class PokedexCollectionViewCell: UICollectionViewCell {
         self.layer.shadowOffset = CGSize(width: 3, height: 3)
         self.layer.shadowOpacity = 0.4
         self.layer.shadowRadius = 10
+        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
 
         let stackView = UIStackView(arrangedSubviews: [pokemonImageView, idLabel, nameLabel, monsterBallImageView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
