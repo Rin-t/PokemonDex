@@ -11,11 +11,7 @@ import RxSwift
 import RxDataSources
 
 //MARK: - Rxに変えたい
-protocol HomeViewModelDelegate: AnyObject ,ApiAlertProtocol, HudProtocol {
-    func showFailAPICallAlert(title: String, message: String)
-    func stopHud()
-    func showHud()
-}
+protocol HomeViewModelDelegate: AnyObject ,ApiAlertProtocol, HudProtocol {}
 
 protocol ApiAlertProtocol {
     func showFailAPICallAlert(title: String, message: String)
@@ -32,15 +28,15 @@ final class HomeViewModel {
     private var itemObserbable: Observable<[PokemonDexCollectionModel]> {
         return items.asObservable()
     }
-
+    //let isHudShown: Observable<Bool>
     private weak var homeViewController: HomeViewModelDelegate?
 
-    //let isHudShown: Observable<Bool>
+    //MARK: - Methods
+
     init(viewController: HomeViewModelDelegate) {
         homeViewController = viewController
     }
-
-    //MARK: - Methods
+    
     func setup() {
         Task {
             do {
@@ -65,14 +61,15 @@ final class HomeViewModel {
 
     private func fetchPokemonsData() async throws -> [Pokemon] {
         let pokemonIdRange = 1...151
+        let urls = try pokemonIdRange.map { (n: Int) -> URL in
+            guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(n)/") else { throw APICallError.unconvertibleToURL }
+            return url
+        }
         var pokemons = [Pokemon]()
         do {
             try await withThrowingTaskGroup(of: (Data, URLResponse).self) { group in
-                for id in pokemonIdRange {
+                for url in urls {
                     group.addTask {
-                        // guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { fatalError() }
-                        //let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/")!
-                        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/\(id)/") else { throw APICallError.unconvertibleToURL }
                         return try await URLSession.shared.data(from: url)
                     }
                 }
