@@ -11,7 +11,7 @@ final class MonsterBallImageView: UIImageView {
     //MARK: - Methods
     init() {
         super.init(frame: .zero)
-        image = UIImage(named: "モンスターボール")
+        image = UIImage(named: "monsterball")
         contentMode = .scaleAspectFit
     }
 
