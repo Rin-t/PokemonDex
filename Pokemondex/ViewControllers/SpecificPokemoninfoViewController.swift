@@ -12,11 +12,17 @@ import SDWebImage
 
 final class SpecificPokemoninfoViewController: UIViewController {
     //MARK: - Propaties
-    var pokemon: Pokemon?
+    private var pokemon: Pokemon!
     private let disposeBag = DisposeBag()
 
+    static func instantiate(pokemon: Pokemon) -> SpecificPokemoninfoViewController {
+        let vc = SpecificPokemoninfoViewController()
+        vc.pokemon = pokemon
+        return vc
+    }
+
     //MARK: - Views
-    private lazy var pokemonIdLabel = PokemonIdLabel(pokemonId: pokemon?.id)
+    private lazy var pokemonIdLabel = PokemonIdLabel(pokemonId: pokemon.id)
     private lazy var pokemonView = PokemonView(pokemon: pokemon)
     private let underIdLabelShadowView = ShadowView()
     private let monsterBallImage = MonsterBallImageView()
@@ -50,8 +56,8 @@ final class SpecificPokemoninfoViewController: UIViewController {
 
     private func setupBindings() {
 
-        let nomalImageURL = URL(string: pokemon?.sprites.frontImage ?? "")
-        let shinyImageURL = URL(string: pokemon?.sprites.shinyImage ?? "")
+        let nomalImageURL = URL(string: pokemon.sprites.frontImage)
+        let shinyImageURL = URL(string: pokemon.sprites.shinyImage)
 
         bottomButtonsView.nomalColorButton.button?.rx.tap
             .asDriver()

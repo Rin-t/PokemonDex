@@ -71,8 +71,7 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
                 guard let item = item else { return }
                 switch item {
                 case .specificPokeomnInfo(let pokemon):
-                    let nextVC = SpecificPokemoninfoViewController()
-                    nextVC.pokemon = pokemon
+                    let nextVC = SpecificPokemoninfoViewController.instantiate(pokemon: pokemon)
                     self?.navigationController?.pushViewController(nextVC, animated: true)
                 }
             })
