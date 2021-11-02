@@ -15,8 +15,10 @@ import PKHUD
 final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
     //MARK: - Propaties
     private let cellId = "cellId"
-    private var viewModel: HomeViewModel!
+    //private var viewModel: HomeViewModel!
     private let disposebag = DisposeBag()
+
+    private var viewModel: HomeViewModelType!
 
     private lazy var datasource = RxCollectionViewSectionedReloadDataSource<PokemonDexCollectionModel>(configureCell: configureCell)
     private lazy var configureCell: RxCollectionViewSectionedReloadDataSource<PokemonDexCollectionModel>.ConfigureCell = { [weak self] (datasource, collectionView, indexPath, item) in
@@ -44,8 +46,10 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = HomeViewModel()
+        viewModel.inputs.viewDidLoad()
+        setupBindings()
         setupLayout()
-        setupViewModel()
         setupCollectionView()
         navigationbarAdoptToiOS15()
     }
@@ -58,14 +62,38 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
 
 
     //MARK: - Methods
-    private func setupViewModel() {
-        viewModel = HomeViewModel(viewController: self)
+    private func setupBindings() {
+        viewModel.outputs.event
+            .subscribe(onNext: { [weak self] event in
+                guard let strongSelf = self else { return }
+                switch event {
+                    case .alert(let action):
+                        switch action {
+                            case .show(title: let title,
+                                       message: let message):
+                                strongSelf.showAlert(title: title, message: message)
+                            case .hide:
+                                break
+                        }
+                    case .indicator(let action):
+                        switch action {
+                            case .start:
+                                DispatchQueue.main.async {
+                                    HUD.show(.progress, onView: nil)
+                                }
+                            case .stop:
+                                DispatchQueue.main.async {
+                                    HUD.hide()
+                                }
+                        }
+                }
+            })
+            .disposed(by: disposebag)
 
-        viewModel.items
+        viewModel.outputs.items
             .bind(to: collectionView.rx.items(dataSource: datasource))
             .disposed(by: disposebag)
 
-        viewModel.setup()
     }
 
     private func setupCollectionView() {
@@ -91,24 +119,6 @@ final class HomeViewController: UIViewController, AdoptNewiOSVersionProtocol {
         view.addSubview(collectionView)
         collectionView.anchor(top: view.topAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor)
     }
-}
-
-extension HomeViewController: HomeViewModelDelegate {
-    func showHud() {
-        DispatchQueue.main.async {
-            HUD.show(.progress, onView: nil)
-        }
-    }
-
-    func stopHud() {
-        DispatchQueue.main.async {
-            HUD.hide()
-        }
-    }
-
-    func showFailAPICallAlert(title: String, message: String) {
-        showAlert(title: title, message: message)
-    }
 
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -121,5 +131,25 @@ extension HomeViewController: HomeViewModelDelegate {
     }
 }
 
+//extension HomeViewController: HomeViewModelDelegate {
+//    func showHud() {
+//        DispatchQueue.main.async {
+//            HUD.show(.progress, onView: nil)
+//        }
+//    }
+//
+//    func stopHud() {
+//        DispatchQueue.main.async {
+//            HUD.hide()
+//        }
+//    }
+//
+//    func showFailAPICallAlert(title: String, message: String) {
+//        showAlert(title: title, message: message)
+//    }
+//
+//
+//}
+//
 extension HomeViewController: UICollectionViewDelegate {}
 
